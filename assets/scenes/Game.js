@@ -1,5 +1,5 @@
 import { SHAPES } from "../../utils.js";
-const { TRIANGLE, SQUARE, DIAMOND } = SHAPES;
+const { TRIANGLE, SQUARE, DIAMOND, CIRCLE,} = SHAPES;
 
 export default class Game extends Phaser.Scene {
   score;
@@ -11,6 +11,7 @@ export default class Game extends Phaser.Scene {
       [TRIANGLE]: { count: 0, score: 10 },
       [SQUARE]: { count: 0, score: 20 },
       [DIAMOND]: { count: 0, score: 30 },
+      [CIRCLE]: { count: 0, score: -10},
     };
     console.log(this.shapesRecolected);
   }
@@ -21,12 +22,11 @@ export default class Game extends Phaser.Scene {
     this.load.image(DIAMOND, "./assets/images/diamond.png");
     this.load.image(SQUARE, "./assets/images/square.png");
     this.load.image(TRIANGLE, "./assets/images/triangle.png");
-    this.load.image("good", "./assets/images/good.png");
+    this.load.image(CIRCLE, "./assets/images/circle.png");
   }
   create() {
     // create game objects
     this.add.image(400, 300, "sky").setScale(0.555);
-    this.add.image(770, 25, "good").setScale(0.111);
 
     let platforms = this.physics.add.staticGroup();
     platforms.create(400, 568, "ground").setScale(2).refreshBody();
@@ -38,8 +38,9 @@ export default class Game extends Phaser.Scene {
     //this.shapesGroup.create(100, 0, "diamond");
     //this.shapesGroup.create(200, 0, "triangle");
     //this.shapesGroup.create(300, 0, "square");
+    //this.shapesGroup.create(100,0, "circle");
     this.time.addEvent({
-      delay: 5000,
+      delay: 1500,
       callback: this.addShape,
       callbackScope: this,
       loop: true,
@@ -82,7 +83,7 @@ export default class Game extends Phaser.Scene {
     }
   }
   addShape() {
-    const randomShape = Phaser.Math.RND.pick([DIAMOND, SQUARE, TRIANGLE]);
+    const randomShape = Phaser.Math.RND.pick([DIAMOND, SQUARE, TRIANGLE, CIRCLE,]);
 
     const randomX = Phaser.Math.RND.between(0, 800);
 
