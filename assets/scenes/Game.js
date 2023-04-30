@@ -1,21 +1,34 @@
+import { SHAPES } from "../../utils.js";
+const { TRIANGLE, SQUARE, DIAMOND, CIRCLE,} = SHAPES;
+
 export default class Game extends Phaser.Scene {
+  score;
   constructor() {
     super("game");
   }
-  init() {}
+  init() {
+    this.shapesRecolected = {
+      [TRIANGLE]: { count: 0, score: 10 },
+      [SQUARE]: { count: 0, score: 20 },
+      [DIAMOND]: { count: 0, score: 30 },
+      [CIRCLE]: { count: 0, score: -10},
+    };
+    console.log(this.shapesRecolected);
+  }
   preload() {
     this.load.image("sky", "./assets/images/sky.png");
     this.load.image("ground", "./assets/images/platform.png");
     this.load.image("ninja", "./assets/images/ninja.png");
-    this.load.image("diamond", "./assets/images/diamond.png");
-    this.load.image("square", "./assets/images/square.png");
-    this.load.image("triangle", "./assets/images/triangle.png");
-    this.load.image("good", "./assets/images/good.png");
+    this.load.image(DIAMOND, "./assets/images/diamond.png");
+    this.load.image(SQUARE, "./assets/images/square.png");
+    this.load.image(TRIANGLE, "./assets/images/triangle.png");
+    this.load.image(CIRCLE, "./assets/images/circle.png");
+    this.load.image("win", "./assets/images/win.png")
+    this.load.image("KeyR", "./assets/images/keyR.png")
   }
   create() {
     // create game objects
     this.add.image(400, 300, "sky").setScale(0.555);
-    this.add.image(770, 25, "good").setScale(0.111);
 
     let platforms = this.physics.add.staticGroup();
     platforms.create(400, 568, "ground").setScale(2).refreshBody();
@@ -27,8 +40,9 @@ export default class Game extends Phaser.Scene {
     //this.shapesGroup.create(100, 0, "diamond");
     //this.shapesGroup.create(200, 0, "triangle");
     //this.shapesGroup.create(300, 0, "square");
+    //this.shapesGroup.create(100,0, "circle");
     this.time.addEvent({
-      delay: 3500,
+      delay: 3000,
       callback: this.addShape,
       callbackScope: this,
       loop: true,
@@ -39,6 +53,22 @@ export default class Game extends Phaser.Scene {
     this.physics.add.collider(this.player, platforms);
     this.physics.add.collider(this.player, this.shapesGroup);
     this.physics.add.collider(platforms, this.shapesGroup);
+
+    this.physics.add.overlap(
+      this.player,
+      this.shapesGroup,
+      this.collectShape,
+      null,
+      this
+    );
+    this.score = 0;
+    this.scoreText = this.add.text(20, 20, "Score:" + this.score, {
+      fontSize: "32px",
+      fontStyle: "bold",
+      fill: "#FFFFFF",
+    });
+
+
   }
 
   update() {
@@ -55,14 +85,41 @@ export default class Game extends Phaser.Scene {
     if (this.cursors.up.isDown && this.player.body.touching.down) {
       this.player.setVelocityY(-330);
     }
+
+
   }
   addShape() {
-    const randomShape = Phaser.Math.RND.pick(["diamond", "square", "triangle"]);
+    const randomShape = Phaser.Math.RND.pick([DIAMOND, SQUARE, TRIANGLE, CIRCLE,]);
 
     const randomX = Phaser.Math.RND.between(0, 800);
 
-    this.shapesGroup.create(randomX, 0, randomShape);
+    this.shapesGroup.create(randomX, 0, randomShape).setCircle(25, 7, 7);
 
     console.log("shape is added", randomX, randomShape);
+
   }
+  collectShape(player, shape) {
+    shape.disableBody(true, true);
+
+    const shapeName = shape.texture.key;
+    this.shapesRecolected[shapeName].count++;
+
+    this.score += this.shapesRecolected[shapeName].score;
+    console.log(this.shapesRecolected[shapeName].score);
+    this.scoreText.setText(`Score: ${this.score.toString()}`);
+
+    console.log(this.shapesRecolected);
+
+    if (score => 100) {
+      this.add.image(400, 300, "win").setScale(0.555);
+    } else if ((socre <= 0)) {
+      this.add.image(400, 300, "keyR").setScale(0.556);
+    } else {
+    } 
+
+
+  }
+
+  
+
 }
