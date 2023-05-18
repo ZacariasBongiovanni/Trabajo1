@@ -80,7 +80,7 @@ export default class Game extends Phaser.Scene {
       fontStyle: "bold",
       fill: "#FFFFFF",
     });
-    this.timer = 1000;
+    this.timer = 40;
     this.timerText = this.add.text(750, 20, this.timer, {
       fontSize: "32px",
       fontStyle: "bold",
