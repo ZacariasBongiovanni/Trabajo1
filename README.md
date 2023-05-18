@@ -5,8 +5,8 @@ evitando que estas toquen el piso ya que al hacerlo se perdera un cierto porcent
 tener cuidado de no recolectar la figura de color rojo porque sino se perderan puntos.
 
 CONTROLES
-Moverse a la Izquierda: Flecha Izquierda
-Moverse a la Derecha: Flecha Derecha
-Moverse a la Saltar: Flecha de Arriba
+<p>Moverse a la Izquierda: Flecha Izquierda</p>
+<p>Moverse a la Derecha: Flecha Derecha</p>
+<p>Moverse a la Saltar: Flecha de Arriba</p>
 
 
