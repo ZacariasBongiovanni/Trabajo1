@@ -1,5 +1,12 @@
-# Phaser 3 Template
+# NINJA MONCHO
 
-Plantilla para iniciar nuevos proyectos con PHASER 3.
+Objetivo: recolectar las distintas figuras para ir sumando puntos y así ganar el nivel, 
+evitando que estas toquen el piso ya que al hacerlo se perdera un cierto porcentaje y 
+tener cuidado de no recolectar la figura de color rojo porque sino se perderan puntos.
 
-Contiene configuración inicial y buenas prácticas de estructuras de carpetas.
+CONTROLES
+Moverse a la Izquierda: Flecha Izquierda
+Moverse a la Derecha: Flecha Derecha
+Moverse a la Saltar: Flecha de Arriba
+
+
