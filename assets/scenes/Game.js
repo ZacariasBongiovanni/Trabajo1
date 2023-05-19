@@ -31,7 +31,7 @@ export default class Game extends Phaser.Scene {
 
     platforms.create(850, 350, "ground").setScale(1).refreshBody();
 
-    this.player = this.physics.add.sprite(100, 450, "ninja");
+    this.player = this.physics.add.sprite(100, 450, "Ninja");
     this.player.setCollideWorldBounds(true);
 
     this.shapesGroup = this.physics.add.group();
@@ -47,7 +47,7 @@ export default class Game extends Phaser.Scene {
     });
 
     this.time.addEvent({
-      delay: 1000,
+      delay: 500,
       callback: this.oneSecond,
       callbackScope: this,
       loop: true,
@@ -80,7 +80,7 @@ export default class Game extends Phaser.Scene {
       fontStyle: "bold",
       fill: "#FFFFFF",
     });
-    this.timer = 1000;
+    this.timer = 60;
     this.timerText = this.add.text(750, 20, this.timer, {
       fontSize: "32px",
       fontStyle: "bold",
